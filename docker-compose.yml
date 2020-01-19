@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  app: # name must be same as nginx proxy_pass in default.conf
+    image: tutum/hello-world
+    restart: unless-stopped
+    ports:
+      - 8000:80
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - URL=example.com
+      - SUBDOMAINS=www,
+      - VALIDATION=http
+      - ONLY_SUBDOMAINS=true #optional
+    volumes:
+      - ./default.conf:/config/nginx/site-confs/default:ro
+
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
