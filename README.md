@@ -9,4 +9,20 @@ Example docker-compose configuration for running http service behind SSL using L
 1. in case you want specific subdomain replace `www` to your subdomain in `default.conf` and `docker-compose.yml`
 1. in case you don't want to generate certificate for root subdomain, update `ONLY_SUBDOMAINS=false` to `ONLY_SUBDOMAINS=true` (for example you don't have access to root domain DNS config)
 1. update `app` service to your specific needs in `docker-compose.yml` (or add any other service)
-1. run `docker-compose up -d`
+
+# Running
+
+Start server by running:
+
+```
+run `docker-compose up -d`
+```
+
+You can observe your app logs/stats by running:
+
+```
+// container stats
+docker stats
+// container logs
+docker-compose logs -f
+```
